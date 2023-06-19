@@ -12,7 +12,7 @@ namespace LemonadeStand
         public int tempreture;
         private List<string> weatherConditions = new List<string>
         {
-            "sunny","rain","cloudy","chance of rain"
+            "sunny","cloudy","a chance of rain","partly sunny", "partly cloudy",
         };
         public string predictedForecast;
        
@@ -26,17 +26,25 @@ namespace LemonadeStand
         {
             Random rand = new Random();
             int randIndex = rand.Next(weatherConditions.Count);
-            string realForecast = weatherConditions[randIndex];  //returns a random forecast
-            return realForecast;
+            string forecast = weatherConditions[randIndex];  //returns a random forecast
+            Console.WriteLine($"Today's forecast is {forecast}");
+            return forecast;
         }
 
-        public int GenerateWeather()
+        public void GenerateWeather()
         {
             Random rand = new Random();
 
-            int realTemp = rand.Next(50, 100); // returns a random temp
+            int temprature = rand.Next(50, 100); // returns a random temp
+            int randId = rand.Next(weatherConditions.Count);
+            string condition = weatherConditions[randId];
 
-            return realTemp;
+
+
+            Console.WriteLine($"The weather today is {temprature} degrees and {condition}");
+
+
+
         }
     }
 }

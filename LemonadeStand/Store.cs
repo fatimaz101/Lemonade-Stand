@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -78,5 +79,30 @@ namespace LemonadeStand
         {
             wallet.PayMoneyForItems(transactionAmount);
         }
+
+        public void AskForStore(Player player)
+        {
+            Console.WriteLine("Do you want to go to the store? (Y/N)");
+            string answer = Console.ReadLine();
+            if (answer == "Y")
+            {
+                SellLemons(player);
+                SellSugarCubes(player);
+                SellIceCubes(player);
+                SellCups(player);
+                
+            }else if(answer == "N")
+            {
+                Console.WriteLine("NO");
+            }
+            else
+            {
+                Console.WriteLine("Please type Y or N, try again");
+                AskForStore(player);
+            }
+
+            
+        }
     }
+
 }
