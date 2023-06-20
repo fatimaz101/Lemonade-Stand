@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -93,7 +94,7 @@ namespace LemonadeStand
                 
             }else if(answer == "N")
             {
-                Console.WriteLine("NO");
+                Console.WriteLine("Okay, youll make due with what you have");
             }
             else
             {
@@ -103,6 +104,24 @@ namespace LemonadeStand
 
             
         }
+
+
+
+        public void NewInventory(Player player)
+        {
+            int newLemon = player.inventory.lemons.Count;
+            int newSugar = player.inventory.sugarCubes.Count;
+            int newIce = player.inventory.iceCubes.Count;
+            int newCups = player.inventory.cups.Count;
+            Console.WriteLine($"You now have {newLemon} lemons.");
+            Console.WriteLine($" {newSugar} sugar cubes.");
+            Console.WriteLine($"{newIce} ice cubes.");
+            Console.WriteLine($" and {newCups} cups");
+
+
+
+        }
     }
+
 
 }

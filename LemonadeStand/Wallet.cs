@@ -21,7 +21,7 @@ namespace LemonadeStand
         //constructor (SPAWNER)
         public Wallet()
         {
-            money = 20.00;
+            money = 2000;
         }
 
         //Member Methods (CAN DO)

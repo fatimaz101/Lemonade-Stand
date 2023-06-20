@@ -13,7 +13,21 @@ namespace LemonadeStand
         private int currentDay;
         public Game()
         {
+
+            days = new List<Day>
+            {
+            new Day("DayOne"),
+            new Day("DayTwo"),
+            new Day("DayThree"),
+            new Day("DayFour"),
+            new Day("DayFive"),
+            new Day("DaySix"),
+            new Day("DaySeven")
+             };
+             
+           
             
+
         }
 
         public void CreatePlayerObjects()
@@ -26,14 +40,21 @@ namespace LemonadeStand
 
         public void RunGame()
         {
-            // Insert game intro here
-            //Welcome to game.. Day 1
-            Weather weather = new Weather();
-            weather.GenerateForecast();
-            //Insert game inventory here
-          Store store = new Store();
+            //Insert game intro here
+            //Welcome to game..Day 1
+
+            days[0].weather.GenerateForecast();
+             
+
+            Store store = new Store();
+
             CreatePlayerObjects();
+            store.NewInventory(player);
             store.AskForStore(player);
+            store.NewInventory(player);
+       
+           
+            
 
 
 
