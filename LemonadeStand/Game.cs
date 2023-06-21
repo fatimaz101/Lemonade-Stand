@@ -59,7 +59,7 @@ namespace LemonadeStand
 
 
 
-            //weather.GenerateWeather();
+           
 
        }
     }

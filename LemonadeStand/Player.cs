@@ -24,6 +24,10 @@ namespace LemonadeStand
         }
 
         // member methods (CAN DO)
+        public void ChangeRecipe()
+        {
+
+        }
 
     }
 }

@@ -9,7 +9,7 @@ namespace LemonadeStand
     internal class Weather
     {
         public string condition;
-        public int tempreture;
+        public int temperature;
         private List<string> weatherConditions = new List<string>
         {
             "sunny","cloudy","a chance of rain","partly sunny", "partly cloudy",
@@ -35,16 +35,18 @@ namespace LemonadeStand
         {
             Random rand = new Random();
 
-            int temprature = rand.Next(50, 100); // returns a random temp
+            int tempreture = rand.Next(50, 100); // returns a random temp
             int randId = rand.Next(weatherConditions.Count);
             string condition = weatherConditions[randId];
 
 
 
-            Console.WriteLine($"The weather today is {temprature} degrees and {condition}");
+            Console.WriteLine($"The weather today is {tempreture} degrees and {condition}");
 
-
+            
 
         }
+
+        
     }
 }
