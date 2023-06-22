@@ -52,6 +52,7 @@ namespace LemonadeStand
             store.NewInventory(player);
             store.AskForStore(player);
             store.NewInventory(player);
+            player.ChangeRecipe();
        
            
             

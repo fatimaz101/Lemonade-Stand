@@ -85,16 +85,16 @@ namespace LemonadeStand
         {
             Console.WriteLine("Do you want to go to the store? (Y/N)");
             string answer = Console.ReadLine();
-            if (answer == "Y")
+            if (answer == "Y" ||answer =="y")
             {
                 SellLemons(player);
                 SellSugarCubes(player);
                 SellIceCubes(player);
                 SellCups(player);
                 
-            }else if(answer == "N")
+            }else if(answer == "N"|| answer=="n")
             {
-                Console.WriteLine("Okay, youll make due with what you have");
+                Console.WriteLine("Okay, lets stick with what we have");
             }
             else
             {
