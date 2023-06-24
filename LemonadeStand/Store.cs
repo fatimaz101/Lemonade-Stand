@@ -34,6 +34,11 @@ namespace LemonadeStand
             {
                 player.wallet.PayMoneyForItems(transactionAmount);
                 player.inventory.AddLemonsToInventory(lemonsToPurchase);
+            }else if (player.wallet.Money < transactionAmount)
+            {
+                Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
+                SellIceCubes(player);
+                
             }
         }
 
@@ -45,6 +50,11 @@ namespace LemonadeStand
             {
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddSugarCubesToInventory(sugarToPurchase);
+            }else if (player.wallet.Money < transactionAmount)
+            {
+                Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
+                SellIceCubes(player);
+                ;
             }
         }
 
@@ -56,7 +66,11 @@ namespace LemonadeStand
             {
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddIceCubesToInventory(iceCubesToPurchase);
-            }
+            }else if (player.wallet.Money < transactionAmount)
+            {
+                Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
+                SellIceCubes(player);
+;           }
         }
 
         public void SellCups(Player player)
@@ -67,6 +81,11 @@ namespace LemonadeStand
             {
                 PerformTransaction(player.wallet, transactionAmount);
                 player.inventory.AddCupsToInventory(cupsToPurchase);
+            }else if (player.wallet.Money < transactionAmount)
+            {
+                Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
+                SellIceCubes(player);
+                ;
             }
         }
 

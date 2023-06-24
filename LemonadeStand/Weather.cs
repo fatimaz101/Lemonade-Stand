@@ -31,19 +31,19 @@ namespace LemonadeStand
             return forecast;
         }
 
-        public void GenerateWeather()
+        public string GenerateWeather()
         {
             Random rand = new Random();
 
-            int tempreture = rand.Next(50, 100); // returns a random temp
+            temperature = rand.Next(50, 100); // returns a random temp
             int randId = rand.Next(weatherConditions.Count);
-            string condition = weatherConditions[randId];
+            condition = weatherConditions[randId];
 
 
 
-            Console.WriteLine($"The weather today is {tempreture} degrees and {condition}");
+            Console.WriteLine($"The weather today is {temperature} degrees and {condition}");
 
-            
+            return condition;
 
         }
 

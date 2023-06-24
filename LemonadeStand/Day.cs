@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace LemonadeStand
         public Weather weather;
         public List<Customer> customers;
         public int saleDemand = 0;
+        public int priceOfLemonade;
         public Day(string name)
         {
             this.name = name;
@@ -23,6 +25,7 @@ namespace LemonadeStand
             
             if (weather.condition == "partly sunny" || weather.condition == "sunny")
             {
+                saleDemand = 0;
                 saleDemand += 80;
                 CalcDemand2();
                 
@@ -30,17 +33,20 @@ namespace LemonadeStand
             }
             else if(weather.condition=="cloudy" || weather.condition=="partly cloudy")
             {
+                saleDemand = 0;
                 saleDemand += 65;
                 CalcDemand2();
                 
 
             }else if (weather.condition=="a chance of rain")
             {
+                saleDemand = 0;
                 saleDemand += 45;
                 CalcDemand2();
                 
             }else if(weather.condition=="it is raining")
             {
+                saleDemand = 0;
                 saleDemand += 30;
                 CalcDemand2();
                 

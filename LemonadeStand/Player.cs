@@ -13,6 +13,8 @@ namespace LemonadeStand
         public Inventory inventory;
         public Wallet wallet;
         public Recipe recipe;
+        public double chargingPrice;
+        int z = 0;
 
 
         // constructor (SPAWNER)
@@ -21,6 +23,7 @@ namespace LemonadeStand
             inventory = new Inventory();
             wallet = new Wallet();
             recipe = new Recipe();
+            
         }
 
         // member methods (CAN DO)
@@ -40,20 +43,65 @@ namespace LemonadeStand
                 recipe.DisplayRecipe();
 
             }
-            
 
-            
+
+
         }
 
         public void PricePerCup()
         {
             Console.WriteLine("How much do you want to charge per cup. (Beware, setting it too high may cause customers to not buy your lemonade");
             string pricePer = Console.ReadLine();
-            int realPrice=  Convert.ToInt32(pricePer);
-            recipe.price = realPrice;
-            
+            this.chargingPrice = Convert.ToInt32(pricePer);
+            recipe.price = chargingPrice;
+
 
         }
+        public void SellLemonade()// this may not work and you might to delete items from the list to get the righ number or items left in inventory
+        {
+
+
+            
+            if (z < 7)
+            {
+                wallet.AcceptMoney(chargingPrice);
+                z++;
+            }
+            else if(z==7)
+                {
+
+                int updatedLemon = inventory.lemons.Count() - recipe.numberOfLemons;
+                updatedLemon = inventory.lemons.Count();
+                int updatedSugar = inventory.sugarCubes.Count() - recipe.numberOfSugarCubes;
+                updatedSugar = inventory.sugarCubes.Count();
+                int updatedIce = inventory.iceCubes.Count() - recipe.numberOfIceCubes;
+                updatedIce = inventory.iceCubes.Count();
+                int updatedCups = inventory.cups.Count() - 1;
+                updatedCups = inventory.cups.Count();
+
+                wallet.AcceptMoney(chargingPrice);
+                z = 0;
+            }
+            
+            
+
+
+
+
+        }
+
+        public void UpdatedWallet()
+        {
+            Console.WriteLine($"You now have {wallet.Money}");
+        }
+
+        public void CheckInventory()
+        {
+            
+        }
+
+        
     }
-}
+
+    }
 
