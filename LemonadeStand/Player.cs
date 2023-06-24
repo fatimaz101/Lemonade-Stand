@@ -14,7 +14,13 @@ namespace LemonadeStand
         public Wallet wallet;
         public Recipe recipe;
         public double chargingPrice;
-        int z = 0;
+        public int usableLemons;
+        public int usableSugar;
+        public int usableIce;
+        public int usableCups;
+
+
+
 
 
         // constructor (SPAWNER)
@@ -48,43 +54,53 @@ namespace LemonadeStand
 
         }
 
-        public void PricePerCup()
+        public double PricePerCup()
         {
             Console.WriteLine("How much do you want to charge per cup. (Beware, setting it too high may cause customers to not buy your lemonade");
             string pricePer = Console.ReadLine();
-            this.chargingPrice = Convert.ToInt32(pricePer);
+            this.chargingPrice = Convert.ToDouble(pricePer);
             recipe.price = chargingPrice;
+            return chargingPrice;
 
 
         }
         public void SellLemonade()// this may not work and you might to delete items from the list to get the righ number or items left in inventory
         {
 
+            //make a parameter to stop at the avaaivble cups of lemonade that goes up by one using && with bottom parameters
+            //once reaches number it will sell out
+
+
 
             
-            if (z < 7)
+            if (usableLemons>=recipe.numberOfLemons||usableSugar>=recipe.numberOfSugarCubes||usableIce>=recipe.numberOfIceCubes||usableCups>=recipe.numberOfCups)
             {
+
+                Console.WriteLine("Cha Ching!");
+                usableLemons -= recipe.numberOfLemons;
+                usableSugar -= recipe.numberOfSugarCubes;
+                usableIce -= recipe.numberOfIceCubes;
+                usableCups -= recipe.numberOfCups;
                 wallet.AcceptMoney(chargingPrice);
-                z++;
+
+                
+
+
+
             }
-            else if(z==7)
+            else 
                 {
 
-                int updatedLemon = inventory.lemons.Count() - recipe.numberOfLemons;
-                updatedLemon = inventory.lemons.Count();
-                int updatedSugar = inventory.sugarCubes.Count() - recipe.numberOfSugarCubes;
-                updatedSugar = inventory.sugarCubes.Count();
-                int updatedIce = inventory.iceCubes.Count() - recipe.numberOfIceCubes;
-                updatedIce = inventory.iceCubes.Count();
-                int updatedCups = inventory.cups.Count() - 1;
-                updatedCups = inventory.cups.Count();
+                Console.WriteLine("Sold Out!");
 
-                wallet.AcceptMoney(chargingPrice);
-                z = 0;
+
+                
+               
             }
-            
-            
 
+
+            //when you make a pitcher for a day those amount of indg should forever be gone from the player inventory
+            // and check if you have enough stuff for those ingrediants
 
 
 
@@ -95,10 +111,112 @@ namespace LemonadeStand
             Console.WriteLine($"You now have {wallet.Money}");
         }
 
-        public void CheckInventory()
+        public bool CheckInventory()//if pitcher is 2 and lemons is 2 make sure its sold out when ingriedaints are 0
         {
+            if (inventory.lemons.Count() <= 0)//make it the amount of playable lemons instead of the invetory
+            {
+                
+                inventory.lemons.Clear();
+                return true;
+                
+                
+            }
+            else if (inventory.sugarCubes.Count() <= 0)
+            {
+                
+                inventory.sugarCubes.Clear();
+                return true;
+            }
+            else if (inventory.iceCubes.Count() <= 0)
+            {
+               
+                inventory.iceCubes.Clear();
+                return true;
+            }
+            else if (inventory.cups.Count() <= 0)
+            {
+                
+                inventory.cups.Clear();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
             
+            
+            
+
         }
+
+        public int CheckPitcher(int amtOfPitchers)
+        {
+
+
+            int usableLemons= inventory.lemons.Count() * amtOfPitchers;
+            int usableSugar = inventory.sugarCubes.Count() * amtOfPitchers;
+            int usableIce = inventory.iceCubes.Count() * amtOfPitchers;
+            int usableCups = amtOfPitchers * 8;
+
+            if(usableLemons>=inventory.lemons.Count() && usableSugar >=inventory.sugarCubes.Count() && usableIce>=inventory.iceCubes.Count() && usableCups >= inventory.cups.Count())
+            {
+
+                int lemonsLeft = inventory.lemons.Count() - usableLemons;
+                inventory.lemons.Clear();
+                inventory.AddLemonsToInventory(usableLemons);
+
+                int sugarLeft = inventory.sugarCubes.Count() - usableSugar;
+                inventory.sugarCubes.Clear();
+                inventory.AddSugarCubesToInventory(usableSugar);
+
+                int iceLeft = inventory.iceCubes.Count() - usableIce;
+                inventory.iceCubes.Clear();
+                inventory.AddIceCubesToInventory(usableIce);
+
+                int cupsLeft = inventory.cups.Count() - usableCups;
+                inventory.cups.Clear();
+                inventory.AddCupsToInventory(usableCups);
+
+
+                return usableLemons;
+                return usableSugar;
+                return usableIce;
+                return usableCups;
+
+
+
+            }
+            else
+            {
+                Console.WriteLine("Not enough in your inventory to make that many pitchers.Try Again.");
+                int newPitcherAttempt= UserInterface.GetNumberOfPitchers();
+                CheckPitcher(newPitcherAttempt);
+
+                return usableLemons;
+                return usableSugar;
+                return usableIce;
+                return usableCups;
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
 
         
     }

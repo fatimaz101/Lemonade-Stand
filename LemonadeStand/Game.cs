@@ -67,7 +67,16 @@ namespace LemonadeStand
         }
 
 
+        public void EndOfDay()
+        {
 
+
+            Console.WriteLine("Day Over");
+            Console.WriteLine($"
+
+
+
+        }
 
 
 
@@ -82,7 +91,7 @@ namespace LemonadeStand
             
 
             CreatePlayerObjects();
-
+            double startingMoney = player.wallet.Money();
 
             //for loop here for amount of days
 
@@ -101,6 +110,9 @@ namespace LemonadeStand
                 store.NewInventory(player);
                 player.ChangeRecipe();
                 int pitchers = UserInterface.GetNumberOfPitchers();//need to connect this to cups of lemonade
+                //take out number of ing it takes to make the amt of pitch from inventory
+                //make sure they can make those amount of pitchers
+                player.CheckPitcher(pitchers);
                 
                 player.PricePerCup();
                 days[i].weather.GenerateWeather();
@@ -115,16 +127,22 @@ namespace LemonadeStand
                 {
                     Customer customer = new Customer();
                     days[i].customers.Add(customer);
-                    player.chargingPrice = days[i].customers[n].cost;
-                    bool answer = days[i].customers[n].ComeToCounter();
+                    days[i].customers[x].cost = player.chargingPrice;
 
-                    if (answer=true)
+
+                    bool answer = days[i].customers[x].ComeToCounter();
+
+                    if (answer==true)
                     {
-                        Console.WriteLine("Cha Ching!");
+                        
                         player.SellLemonade();
-                        //add checker for inventory to stop game if sold out
+                        bool enoughItems;
+                       
+                        
+                        
 
-                    }else if (answer = false)
+                    }
+                    else if (answer ==false)
                     {
 
                         Console.WriteLine("Customer passed you by");
@@ -132,35 +150,11 @@ namespace LemonadeStand
                     }
 
 
-
+                    //day over message
+                    //print how much they earned and how many customers came
+                    //i++
                 }
 
-
-                // for loop here for customers
-                //need to figure out how to get the amount of customers in days class list and why they are that much
-
-                //Day Begins message
-
-                player.chargingPrice = days[i].customers[0].cost; //could need to be in day class
-
-
-                days[i].customers[0].ComeToCounter();//to see price  //going to replace 0 with i
-                days[i].customers[0].DidTheyBuy();//to get true or false ///may have to put these last two methods in the day class
-
-                //if statement using wther true of false makes a sale with writing
-
-
-                player.SellLemonade(); //to reduce the number of items in the inventory follwing the reciepe
-                                       //days[0].customers[0].trueOrFalse
-
-
-
-
-
-
-
-
-                player.UpdatedWallet();
 
                 
 

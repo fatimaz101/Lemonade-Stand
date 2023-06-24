@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -18,6 +19,8 @@ namespace LemonadeStand
         {
             this.name = name;
             weather = new Weather();
+            customers = new List<Customer>();
+            
         }
 
         public int CalcDemand() //using weather and condition
@@ -57,16 +60,16 @@ namespace LemonadeStand
         
         public void CalcDemand2()                     //calc demand for temperature 
         {
-            if (weather.temperature >= 50 || weather.temperature < 65)
+            if (weather.temperature >= 50 && weather.temperature < 65)
             {
                 saleDemand -= 20;
 
             }
-            else if (weather.temperature >= 65 || weather.temperature < 75)
+            else if (weather.temperature >= 65 && weather.temperature < 75)
             {
                 saleDemand -= 5;
             }
-            else if (weather.temperature >= 75 || weather.temperature <= 90)
+            else if (weather.temperature >= 75 && weather.temperature <= 90)
             {
                 saleDemand += 15;
             }
@@ -75,5 +78,17 @@ namespace LemonadeStand
                 saleDemand += 20;
             }
         }
+
+        public void AddCustomers()
+        {
+            Customer customer = new Customer();
+            customers.Add(customer);
+        }
+
+
+
+
+
     }
+
 }

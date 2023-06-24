@@ -9,7 +9,10 @@ namespace LemonadeStand
     internal class Customer
     {
         public Weather weather;
-        public List<string> possibilities;
+        public List<string> possibilities = new List<string>
+        {
+            "test"
+        };
         public double cost;
         public bool trueOrFalse;
 
@@ -17,6 +20,7 @@ namespace LemonadeStand
 
         public Customer()
         {
+            
             possibilities.Clear();
             possibilities.Add("true");
             possibilities.Add("true");
