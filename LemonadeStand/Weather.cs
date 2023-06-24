@@ -12,7 +12,7 @@ namespace LemonadeStand
         public int temperature;
         private List<string> weatherConditions = new List<string>
         {
-            "sunny","cloudy","a chance of rain","partly sunny", "partly cloudy",
+            "sunny","cloudy","a chance of rain","partly sunny", "partly cloudy","it is raining"
         };
         public string predictedForecast;
        

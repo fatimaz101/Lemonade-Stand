@@ -42,6 +42,7 @@ namespace LemonadeStand
         {
             //Insert game intro here
             //Welcome to game..Day 1
+            //for loop for the days of the week
 
             days[0].weather.GenerateForecast();
              
@@ -53,6 +54,14 @@ namespace LemonadeStand
             store.AskForStore(player);
             store.NewInventory(player);
             player.ChangeRecipe();
+            UserInterface.GetNumberOfPitchers(); //unsure if this will work or how to connect to real
+            player.PricePerCup();
+            days[0].weather.GenerateWeather();
+            days[0].CalcDemand();
+            
+            
+              
+            
        
            
             

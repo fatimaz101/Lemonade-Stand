@@ -40,13 +40,20 @@ namespace LemonadeStand
                 recipe.DisplayRecipe();
 
             }
-            else if (answer == "N"||answer=="n")
-            {
-                //may be not needed since saying no will contunie app
-            }
+            
 
             
         }
 
+        public void PricePerCup()
+        {
+            Console.WriteLine("How much do you want to charge per cup. (Beware, setting it too high may cause customers to not buy your lemonade");
+            string pricePer = Console.ReadLine();
+            int realPrice=  Convert.ToInt32(pricePer);
+            recipe.price = realPrice;
+            
+
+        }
     }
 }
+

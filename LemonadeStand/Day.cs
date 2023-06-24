@@ -11,14 +11,14 @@ namespace LemonadeStand
         public string name;
         public Weather weather;
         public List<Customer> customers;
-        int saleDemand = 0;
+        public int saleDemand = 0;
         public Day(string name)
         {
             this.name = name;
             weather = new Weather();
         }
 
-        public void CalcDemand() //using weather and condition
+        public int CalcDemand() //using weather and condition
         {
             
             if (weather.condition == "partly sunny" || weather.condition == "sunny")
@@ -26,18 +26,30 @@ namespace LemonadeStand
                 saleDemand += 80;
                 CalcDemand2();
                 
+                
             }
             else if(weather.condition=="cloudy" || weather.condition=="partly cloudy")
             {
                 saleDemand += 65;
                 CalcDemand2();
+                
 
             }else if (weather.condition=="a chance of rain")
             {
-                saleDemand += 40;
+                saleDemand += 45;
                 CalcDemand2();
+                
+            }else if(weather.condition=="it is raining")
+            {
+                saleDemand += 30;
+                CalcDemand2();
+                
             }
-        }public void CalcDemand2()                     //calc demand for temperature 
+            return saleDemand;
+        }
+        
+        
+        public void CalcDemand2()                     //calc demand for temperature 
         {
             if (weather.temperature >= 50 || weather.temperature < 65)
             {
