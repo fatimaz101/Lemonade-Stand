@@ -42,6 +42,8 @@ namespace LemonadeStand
             {
                 Console.WriteLine("How many lemons per cup?");
                 recipe.numberOfLemons = Convert.ToInt32(Console.ReadLine());
+
+               
                 Console.WriteLine("How many sugar cubes per cup?");
                 recipe.numberOfSugarCubes = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("How many ice cubes per cup?");
@@ -64,15 +66,18 @@ namespace LemonadeStand
 
 
         }
-        public void SellLemonade()// this may not work and you might to delete items from the list to get the righ number or items left in inventory
+        public void SellLemonade(int amtOfPitchers)
         {
 
             //make a parameter to stop at the avaaivble cups of lemonade that goes up by one using && with bottom parameters
             //once reaches number it will sell out
+            int usableLemons = recipe.numberOfLemons * amtOfPitchers;
+            int usableSugar = recipe.numberOfSugarCubes * amtOfPitchers;
+            int usableIce = recipe.numberOfIceCubes * amtOfPitchers;
+            int usableCups = amtOfPitchers * 8;
 
 
 
-            
             if (usableLemons>=recipe.numberOfLemons||usableSugar>=recipe.numberOfSugarCubes||usableIce>=recipe.numberOfIceCubes||usableCups>=recipe.numberOfCups)
             {
 

@@ -37,7 +37,7 @@ namespace LemonadeStand
             }else if (player.wallet.Money < transactionAmount)
             {
                 Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
-                SellIceCubes(player);
+                SellLemons(player);
                 
             }
         }
@@ -53,7 +53,7 @@ namespace LemonadeStand
             }else if (player.wallet.Money < transactionAmount)
             {
                 Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
-                SellIceCubes(player);
+                SellSugarCubes(player);
                 ;
             }
         }
@@ -84,7 +84,7 @@ namespace LemonadeStand
             }else if (player.wallet.Money < transactionAmount)
             {
                 Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
-                SellIceCubes(player);
+                SellCups(player);
                 ;
             }
         }

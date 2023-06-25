@@ -75,7 +75,7 @@ namespace LemonadeStand
             double totalProfit = 0;
 
 
-            profit = newCash - totalCash;
+            
 
             if (profit > 0)
             {
@@ -124,19 +124,19 @@ namespace LemonadeStand
 
 
             CreatePlayerObjects();
-                double startingMoney = player.wallet.originalMoney;//captures starting cash before game
-
+            double startingMoney = player.wallet.Money; //capture starting day cash in wallet
+            int day = 1;
                 //for loop here for amount of days
 
                 for (int i = 0; i < 7; i++)
                 {
 
-                Console.WriteLine($"Starting Day {i + 1}");
+                Console.WriteLine($"Starting Day {day}");
                     days[0].weather.GenerateForecast();
 
 
 
-                double morningCash = player.wallet.startOfDayMoney;
+                double morningCash = player.wallet.Money;
 
 
                     store.NewInventory(player);
@@ -150,7 +150,7 @@ namespace LemonadeStand
                     player.PricePerCup();
                     days[i].weather.GenerateWeather();
 
-                    int n = Convert.ToInt32((days[i].CalcDemand()) * (.6));//to get number of customer objects (demand based on weather)
+                    int n = Convert.ToInt32((days[i].CalcDemand()) * (.8));//to get number of customer objects (demand based on weather)
 
 
                     Console.WriteLine("Okay,lets start selling!.Good Luck");
@@ -168,7 +168,7 @@ namespace LemonadeStand
                         if (answer == true)
                         {
 
-                            player.SellLemonade();
+                        player.SellLemonade(pitchers);
                             
 
 
@@ -182,20 +182,20 @@ namespace LemonadeStand
 
                         }
 
-                    double nightCash = player.wallet.moneyMade;
-
-                    EndOfDay(startingMoney, morningCash, nightCash);
-
-                    i++;
+                    
                     }
 
 
+                double nightCash = player.wallet.Money;
+
+                EndOfDay(startingMoney, morningCash, nightCash);
+
+                i++;
 
 
-                    
 
 
-                }
+            }
 
 
 
