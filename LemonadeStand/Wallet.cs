@@ -10,18 +10,26 @@ namespace LemonadeStand
     {
         // member variables (HAS A)
         private double money;
+        public double originalMoney;
+        public double startOfDayMoney;
+        public double moneyMade;
+        
         public double Money
         {
             get
             {
                 return money;
             }
+            
         }
 
         //constructor (SPAWNER)
         public Wallet()
         {
             money = 2000;
+            originalMoney = money;
+            moneyMade = money;
+            startOfDayMoney = money;
         }
 
         //Member Methods (CAN DO)

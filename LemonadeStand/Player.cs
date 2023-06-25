@@ -154,29 +154,29 @@ namespace LemonadeStand
         {
 
 
-            int usableLemons= inventory.lemons.Count() * amtOfPitchers;
-            int usableSugar = inventory.sugarCubes.Count() * amtOfPitchers;
-            int usableIce = inventory.iceCubes.Count() * amtOfPitchers;
+            int usableLemons = recipe.numberOfLemons * amtOfPitchers;
+            int usableSugar = recipe.numberOfSugarCubes * amtOfPitchers;
+            int usableIce = recipe.numberOfIceCubes * amtOfPitchers;
             int usableCups = amtOfPitchers * 8;
 
-            if(usableLemons>=inventory.lemons.Count() && usableSugar >=inventory.sugarCubes.Count() && usableIce>=inventory.iceCubes.Count() && usableCups >= inventory.cups.Count())
+            if(usableLemons<=inventory.lemons.Count() && usableSugar <=inventory.sugarCubes.Count() && usableIce<=inventory.iceCubes.Count() && usableCups <= inventory.cups.Count())
             {
 
                 int lemonsLeft = inventory.lemons.Count() - usableLemons;
                 inventory.lemons.Clear();
-                inventory.AddLemonsToInventory(usableLemons);
+                inventory.AddLemonsToInventory(lemonsLeft);
 
                 int sugarLeft = inventory.sugarCubes.Count() - usableSugar;
                 inventory.sugarCubes.Clear();
-                inventory.AddSugarCubesToInventory(usableSugar);
+                inventory.AddSugarCubesToInventory(sugarLeft);
 
                 int iceLeft = inventory.iceCubes.Count() - usableIce;
                 inventory.iceCubes.Clear();
-                inventory.AddIceCubesToInventory(usableIce);
+                inventory.AddIceCubesToInventory(iceLeft);
 
                 int cupsLeft = inventory.cups.Count() - usableCups;
                 inventory.cups.Clear();
-                inventory.AddCupsToInventory(usableCups);
+                inventory.AddCupsToInventory(cupsLeft);
 
 
                 return usableLemons;

@@ -110,6 +110,7 @@ namespace LemonadeStand
                 SellSugarCubes(player);
                 SellIceCubes(player);
                 SellCups(player);
+                NewInventory(player);
                 
             }else if(answer == "N"|| answer=="n")
             {
