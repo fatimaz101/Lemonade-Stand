@@ -36,7 +36,7 @@ namespace LemonadeStand
                 player.inventory.AddLemonsToInventory(lemonsToPurchase);
             }else if (player.wallet.Money < transactionAmount)
             {
-                Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
+                Console.WriteLine($"Sorry you can't afford that. You only have {Math.Round(player.wallet.Money, 2)}  dollars.Try Again.");
                 SellLemons(player);
                 
             }
@@ -52,7 +52,7 @@ namespace LemonadeStand
                 player.inventory.AddSugarCubesToInventory(sugarToPurchase);
             }else if (player.wallet.Money < transactionAmount)
             {
-                Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
+                Console.WriteLine($"Sorry you can't afford that. You only have {Math.Round(player.wallet.Money, 2)}  dollars.Try Again.");
                 SellSugarCubes(player);
                 ;
             }
@@ -68,7 +68,7 @@ namespace LemonadeStand
                 player.inventory.AddIceCubesToInventory(iceCubesToPurchase);
             }else if (player.wallet.Money < transactionAmount)
             {
-                Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
+                Console.WriteLine($"Sorry you can't afford that. You only have {Math.Round(player.wallet.Money, 2)}  dollars.Try Again.");
                 SellIceCubes(player);
 ;           }
         }
@@ -83,7 +83,7 @@ namespace LemonadeStand
                 player.inventory.AddCupsToInventory(cupsToPurchase);
             }else if (player.wallet.Money < transactionAmount)
             {
-                Console.WriteLine($"Sorry you can't afford that. You only have {player.wallet.Money} dollars.Try Again.");
+                Console.WriteLine($"Sorry you can't afford that. You only have {Math.Round(player.wallet.Money, 2)}  dollars.Try Again.");
                 SellCups(player);
                 ;
             }
@@ -103,7 +103,7 @@ namespace LemonadeStand
         public void AskForStore(Player player)
         {
             Console.WriteLine("Do you want to go to the store? (Y/N)");
-            Console.WriteLine($"You have {player.wallet.Money} dollars.");
+            Console.WriteLine($"You have {Math.Round(player.wallet.Money, 2)} dollars.");
             string answer = Console.ReadLine();
             if (answer == "Y" ||answer =="y")
             {

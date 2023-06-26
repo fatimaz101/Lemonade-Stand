@@ -26,7 +26,7 @@ namespace LemonadeStand
         //constructor (SPAWNER)
         public Wallet()
         {
-            money = 20;
+            money = 10;
             originalMoney = money;
             moneyMade = money;
             startOfDayMoney = money;

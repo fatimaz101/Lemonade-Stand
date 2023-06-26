@@ -39,6 +39,8 @@ namespace LemonadeStand
             Console.WriteLine("Do you want to change your recipe? (Y/N");
             string answer;
             answer = Console.ReadLine();
+
+
             if (answer == "Y" || answer == "y")
             {
                 Console.WriteLine("How many lemons per cup?");
@@ -81,11 +83,10 @@ namespace LemonadeStand
 
         {
 
-            //make a parameter to stop at the avaaivble cups of lemonade that goes up by one using && with bottom parameters
-            //once reaches number it will sell out
+         
             
 
-            if (lemonadeAvailable>0)
+            if (lemonadeAvailable>0&&amtOfPitchers>0)
             {
 
                 Console.WriteLine("Cha Ching!");
@@ -113,19 +114,11 @@ namespace LemonadeStand
 
             }
 
-
-            //when you make a pitcher for a day those amount of indg should forever be gone from the player inventory
-            // and check if you have enough stuff for those ingrediants
-
-            
+   
 
         }
 
-        public void UpdatedWallet()
-        {
-            Console.WriteLine($"You now have {wallet.Money}");
-        }
-
+      
        
 
         public void CheckPitcher(int amtOfPitchers)

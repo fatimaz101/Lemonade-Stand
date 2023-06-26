@@ -23,72 +23,74 @@ namespace LemonadeStand
             
             possibilities.Clear();
             possibilities.Add("true");
-            possibilities.Add("true");
-            possibilities.Add("true");
             possibilities.Add("false");
-            possibilities.Add("false");
-            possibilities.Add("false");
+          
         }
 
-        public bool ComeToCounter()
+        public bool ComeToCounter(int taste)
         {
-            //try to make a true of fale list where you add more so the probalitiy goes higher like that
             
-            if (cost>= 0 && cost < 1)
+
+            for (int i = 0; i < taste; i++)//for when lemonade doesnt taste good
+            {
+                possibilities.Add("false");
+            }
+
+
+
+
+            if (cost >= 0 && cost < 1)
             {
 
                 possibilities.Add("true");
                 possibilities.Add("true");
                 possibilities.Add("true");
-                possibilities.Add("true");
+
                 DidTheyBuy();
 
-                
+
 
             }
-            else if(cost>=1 && cost < 2)
-            {
-                possibilities.Add("true");
-                possibilities.Add("true");
-                DidTheyBuy();
-                
-
-            }
-            else if(cost>=2 && cost < 3)
+            else if (cost >= 1 && cost < 2)
             {
                 possibilities.Add("true");
                 possibilities.Add("true");
                 possibilities.Add("false");
+                DidTheyBuy();
+
+
+            }
+            else if (cost >= 2 && cost < 3)
+            {
+                possibilities.Add("true");
                 possibilities.Add("false");
                 possibilities.Add("false");
                 DidTheyBuy();
 
-                
+
 
             }
-            else if(cost>=3 && cost < 4)
+            else if (cost >= 3 && cost < 4)
             {
                 possibilities.Add("true");
                 possibilities.Add("false");
                 possibilities.Add("false");
                 possibilities.Add("false");
                 possibilities.Add("false");
-                possibilities.Add("false");
                 DidTheyBuy();
-               
+
 
             }
-            else if(cost >=4 && cost <=5)
+            else if (cost >= 4 && cost <= 5)
             {
                 possibilities.Add("false");
                 possibilities.Add("false");
                 possibilities.Add("false");
                 possibilities.Add("false");
-                possibilities.Add("false");
                 DidTheyBuy();
-                
+
             }
-            else if (cost > 5)
+            else if (cost > 5 && cost < 10)
             {
                 possibilities.Add("false");
                 possibilities.Add("false");
@@ -97,10 +99,35 @@ namespace LemonadeStand
                 possibilities.Add("false");
                 possibilities.Add("false");
                 possibilities.Add("false");
+                DidTheyBuy();
+
+            }
+            else if (cost >=10)
+            {
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
+                possibilities.Add("false");
                 possibilities.Add("false");
                 DidTheyBuy();
-                
+                DidTheyBuy();
+
             }
+
 
             return trueOrFalse;
 

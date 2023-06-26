@@ -32,6 +32,17 @@ namespace LemonadeStand
 
         }
 
+        public void GameIntro()
+        {
+            Console.WriteLine("This is the Lemonade Stand Game");
+            Console.WriteLine("You have a week to make as much money as possible");
+            Console.WriteLine("In this game you have the power to change the price,go to the store,and change your recipe");
+            Console.WriteLine("Setting the price too high can make people not want to buy your lemonade");
+            Console.WriteLine("Make sure you have enough stock or you wont be able to sell!");
+            Console.WriteLine("Weather will play a big part in demand so make sure you listen to the weather forecast");
+            GameSpace();
+            Console.WriteLine("Good Luck");
+        }
 
 
         public void GameSpace()
@@ -39,6 +50,43 @@ namespace LemonadeStand
             Console.WriteLine("                ");
         }
 
+
+
+        public int DoesItTasteGood()
+        {
+            if (player.recipe.numberOfLemons < 2 || player.recipe.numberOfLemons > 7 || player.recipe.numberOfSugarCubes < 4 || player.recipe.numberOfSugarCubes > 11 || player.recipe.numberOfIceCubes < 6 || player.recipe.numberOfIceCubes > 26)
+            {
+                return 4;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public void IsGameValid()
+        {
+            double checkMoney = player.wallet.Money;
+            if (checkMoney < .25)
+            {
+
+
+                if (player.inventory.lemons.Count < (player.recipe.numberOfLemons) || player.inventory.sugarCubes.Count < (player.recipe.numberOfSugarCubes) || player.inventory.iceCubes.Count < (player.recipe.numberOfIceCubes) || player.inventory.cups.Count < 8)
+                {
+
+                    GameSpace();
+                    Console.WriteLine("Sorry you ran out money and you didn't have enough stock to make another pitcher");
+                    GameSpace();
+
+                    System.Environment.Exit(0);
+                }
+                GameSpace();
+                GameSpace();
+                Console.WriteLine("Warning!!");
+                Console.WriteLine("You dont have enough money to buy anything. You really need to make money today");
+
+            }
+        }
         public void CreatePlayerObjects()
         {
             player=new Player();
@@ -79,25 +127,12 @@ namespace LemonadeStand
         {
 
             CreatePlayerObjects();
-            double startingMoney = player.wallet.Money; //capture starting day cash in wallet
+            double startingMoney = player.wallet.Money; //capture orignal amount in wallet
             int day = 1;
             for (int i = 0; i < 7; i++)
             {
 
-                double checkMoney = player.wallet.Money;//make this its own method/////////////make this a method
-                if (checkMoney < .25)
-                {
-
-
-                    if(player.inventory.lemons.Count < (player.recipe.numberOfLemons) || player.inventory.sugarCubes.Count < (player.recipe.numberOfSugarCubes) || player.inventory.iceCubes.Count < (player.recipe.numberOfIceCubes) || player.inventory.cups.Count < 1)
-                    {
-                        Console.WriteLine("Sorry you ran out money and you dont have enough stock to make another pitcher.Game over");
-
-                        System.Environment.Exit(0);
-                    }
-
-                    
-                }
+                IsGameValid();
 
                 GameSpace();
                 GameSpace();
@@ -108,7 +143,7 @@ namespace LemonadeStand
 
                 day++;
 
-                double morningCash = player.wallet.Money;
+                double morningCash = player.wallet.Money; //capture starting day cash amout
 
                 GameSpace();
                 store.NewInventory(player);
@@ -124,7 +159,7 @@ namespace LemonadeStand
                 player.PricePerCup();
                 days[i].weather.GenerateWeather();
 
-                int n = Convert.ToInt32((days[i].CalcDemand()) * (.8));//to get number of customer objects (demand based on weather)
+                int n = Convert.ToInt32((days[i].CalcDemand()) * (.6));//creates number of customers based on weather(demand)
 
 
                 Console.WriteLine("Okay,lets start selling!.Good Luck");
@@ -133,23 +168,19 @@ namespace LemonadeStand
 
                 for (int x = 0; x < n; x++)
                 {
-                    Customer customer = new Customer();
-                    days[i].customers.Add(customer);
+
+                    days[i].AddCustomers();
                     days[i].customers[x].cost = player.chargingPrice;
 
+                    int taste = DoesItTasteGood();//checks to see if lemonade is within normal standards
+                    bool answer = days[i].customers[x].ComeToCounter(taste);
 
-                    bool answer = days[i].customers[x].ComeToCounter();
-
-                    //write something for demand depending on reciecpe amount of indg customers wont buy lemonade
                     
 
                     if (answer == true)
                     {
-
+   
                         player.SellLemonade(player.lemonadeYouCanSell, pitchers);
-
-                          
-
 
 
                     }
@@ -163,6 +194,8 @@ namespace LemonadeStand
                     
 
                 }
+
+                player.lemonadeYouCanSell = 0;
                 Console.WriteLine($"You had {days[i].customers.Count} customers come today");
 
                 int testvar = 10;
@@ -186,8 +219,7 @@ namespace LemonadeStand
 
 
 
-        // orgcash ir orginal money   new cash is morning starting money    total cash is end of day money       total profit is the weeks profit profit is daily profit
-        //starting money//startodaymoney//moneymade//
+        
         public void EndOfDay(double orgCash,double newCash,double totalCash)
         {
             double profit = totalCash - newCash;
@@ -202,15 +234,11 @@ namespace LemonadeStand
             {
 
 
-                Console.WriteLine($"You made {profit} dollars today.Nice!");
+                Console.WriteLine($"You made {Math.Round(profit, 2)} dollars today.Nice!");
 
                 totalProfit = totalCash - orgCash;
-                Console.WriteLine($"Your total profit so far this week is {totalProfit} dollars");
-                Console.WriteLine($"And you have {totalCash} dollars in your wallet now.");
-
-                //subtract wallet money from starting money gives you the total week profit or loss
-                //subtract old wallet money from that day to updated wallet from the end of the day
-                //for loop those numbers for different messages
+                Console.WriteLine($"Your total profit this week is {Math.Round(totalProfit, 2)}dollars");
+                Console.WriteLine($"And you have {Math.Round(totalCash, 2)}  dollars in your wallet now.");
 
 
             }
@@ -218,15 +246,16 @@ namespace LemonadeStand
             {
                 Console.WriteLine("You broke even today");
                 totalProfit = totalCash - orgCash;
-                Console.WriteLine($"Your total profit so far this week is {totalProfit} dollars");
+                Console.WriteLine($"Your total profit this week is {Math.Round(totalProfit, 2)} dollars");
 
             }
             else if (profit < 0)
             {
-                Console.WriteLine($"You lost {profit} today.Better luck next time");
+                Console.WriteLine($"You lost {Math.Round(profit, 2)} dollars today.Better luck next time");
                 totalProfit = totalCash - orgCash;
-                Console.WriteLine($"Your total profit so far this week is {totalProfit} dollars");
-
+                Console.WriteLine($"Your total profit this week is {Math.Round(totalProfit, 2)} dollars");
+                Console.WriteLine($"And you have {Math.Round(totalCash, 2)}  dollars in your wallet now.");
+                
             }
 
 
@@ -236,30 +265,17 @@ namespace LemonadeStand
 
             public void RunGame()
             {
-            Console.WriteLine("This is the Lemonade Stand Game");
-            Console.WriteLine("You have a week to make as much money as possible");
-            Console.WriteLine("In this game you have the power to change the price,go to the store,and change your recipe");
-            Console.WriteLine("Setting the price too high can make people not want to buy your lemonade");
-            Console.WriteLine("Make sure you have enough stock or you wont be able to sell!");
-            Console.WriteLine("Weather will play a big part in demand so make sure you listen to the weather forecast");
-            GameSpace();
-            Console.WriteLine("Good Luck");
-            //write a better intro 
+            GameIntro();
+            
 
             RunWeek();
 
 
-            if (player.wallet.Money < .25)
-            {
-                GameSpace();
-                Console.WriteLine("You ran out of money so your stand went out of businesss! Better luck next week :(");
-            }
 
             GameSpace();
             Console.WriteLine("Game Over.");
            
-            //we will have a game over scenario here
-            //possibily if they run out of money but if not its fine
+            
 
 
 

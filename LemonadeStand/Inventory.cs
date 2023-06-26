@@ -21,7 +21,7 @@ namespace LemonadeStand
             sugarCubes = new List<SugarCube>();
             iceCubes = new List<IceCube>();
             cups = new List<Cup>();
-            AddLemonsToInventory(2);
+            AddLemonsToInventory(8);
             AddSugarCubesToInventory(20);
             AddIceCubesToInventory(100);
             AddCupsToInventory(30);
