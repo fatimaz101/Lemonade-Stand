@@ -87,9 +87,16 @@ namespace LemonadeStand
                 double checkMoney = player.wallet.Money;//make this its own method/////////////make this a method
                 if (checkMoney < .25)
                 {
-                    Console.WriteLine("Sorry you ran out money before the end of the week.Game Over");
 
-                    System.Environment.Exit(0);
+
+                    if(player.inventory.lemons.Count < (player.recipe.numberOfLemons) || player.inventory.sugarCubes.Count < (player.recipe.numberOfSugarCubes) || player.inventory.iceCubes.Count < (player.recipe.numberOfIceCubes) || player.inventory.cups.Count < 1)
+                    {
+                        Console.WriteLine("Sorry you ran out money and you dont have enough stock to make another pitcher.Game over");
+
+                        System.Environment.Exit(0);
+                    }
+
+                    
                 }
 
                 GameSpace();
@@ -107,7 +114,7 @@ namespace LemonadeStand
                 store.NewInventory(player);
                 store.AskForStore(player);
                 GameSpace();
-
+                player.recipe.DisplayRecipe();
                 player.ChangeRecipe();
                 GameSpace();
                 int pitchers = UserInterface.GetNumberOfPitchers();
@@ -122,7 +129,7 @@ namespace LemonadeStand
 
                 Console.WriteLine("Okay,lets start selling!.Good Luck");
                 GameSpace();
-
+                player.AmtOfLemonade(pitchers);
 
                 for (int x = 0; x < n; x++)
                 {
@@ -133,12 +140,15 @@ namespace LemonadeStand
 
                     bool answer = days[i].customers[x].ComeToCounter();
 
+                    //write something for demand depending on reciecpe amount of indg customers wont buy lemonade
+                    
+
                     if (answer == true)
                     {
 
-                        player.SellLemonade(pitchers);
+                        player.SellLemonade(player.lemonadeYouCanSell, pitchers);
 
-
+                          
 
 
 
@@ -150,8 +160,12 @@ namespace LemonadeStand
 
                     }
 
+                    
 
                 }
+                Console.WriteLine($"You had {days[i].customers.Count} customers come today");
+
+                int testvar = 10;
                 GameSpace();
                 GameSpace();
 
@@ -159,7 +173,7 @@ namespace LemonadeStand
 
                 EndOfDay(startingMoney, morningCash, nightCash);
 
-                i++;
+                
 
                 Thread.Sleep(4000);
 
@@ -178,7 +192,7 @@ namespace LemonadeStand
         {
             double profit = totalCash - newCash;
 
-            Console.WriteLine("Day Over");
+            Console.WriteLine($"Day Over");
             double totalProfit = 0;
 
 
@@ -228,6 +242,7 @@ namespace LemonadeStand
             Console.WriteLine("Setting the price too high can make people not want to buy your lemonade");
             Console.WriteLine("Make sure you have enough stock or you wont be able to sell!");
             Console.WriteLine("Weather will play a big part in demand so make sure you listen to the weather forecast");
+            GameSpace();
             Console.WriteLine("Good Luck");
             //write a better intro 
 
@@ -236,8 +251,11 @@ namespace LemonadeStand
 
             if (player.wallet.Money < .25)
             {
+                GameSpace();
                 Console.WriteLine("You ran out of money so your stand went out of businesss! Better luck next week :(");
             }
+
+            GameSpace();
             Console.WriteLine("Game Over.");
            
             //we will have a game over scenario here

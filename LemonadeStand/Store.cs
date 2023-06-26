@@ -21,7 +21,7 @@ namespace LemonadeStand
         {
             pricePerLemon = .5;
             pricePerSugarCube = .1;
-            pricePerIceCube = .01;
+            pricePerIceCube = .03;
             pricePerCup = .25;
         }
 
@@ -103,9 +103,15 @@ namespace LemonadeStand
         public void AskForStore(Player player)
         {
             Console.WriteLine("Do you want to go to the store? (Y/N)");
+            Console.WriteLine($"You have {player.wallet.Money} dollars.");
             string answer = Console.ReadLine();
             if (answer == "Y" ||answer =="y")
             {
+                Console.WriteLine($"Lemons cost ${pricePerLemon}");
+                Console.WriteLine($"Sugar cubes cost ${pricePerSugarCube}");
+                Console.WriteLine($"Ice cubes cost ${pricePerIceCube}");
+                Console.WriteLine($"Cups cost ${pricePerCup}");
+
                 SellLemons(player);
                 SellSugarCubes(player);
                 SellIceCubes(player);
