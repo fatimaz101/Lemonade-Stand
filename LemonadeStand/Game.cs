@@ -12,6 +12,7 @@ namespace LemonadeStand
         private List<Day> days;
         private int currentDay;
         public Store store = new Store();
+        int day = 1;
         public Game()
         {
 
@@ -29,6 +30,13 @@ namespace LemonadeStand
            
             
 
+        }
+
+
+
+        public void GameSpace()
+        {
+            Console.WriteLine("                ");
         }
 
         public void CreatePlayerObjects()
@@ -65,6 +73,105 @@ namespace LemonadeStand
 
 
         }
+
+
+        public void RunWeek()
+        {
+
+            CreatePlayerObjects();
+            double startingMoney = player.wallet.Money; //capture starting day cash in wallet
+            int day = 1;
+            for (int i = 0; i < 7; i++)
+            {
+
+                double checkMoney = player.wallet.Money;//make this its own method/////////////make this a method
+                if (checkMoney < .25)
+                {
+                    Console.WriteLine("Sorry you ran out money before the end of the week.Game Over");
+
+                    System.Environment.Exit(0);
+                }
+
+                GameSpace();
+                GameSpace();
+
+
+                Console.WriteLine($"Starting Day {day}");
+                days[0].weather.GenerateForecast();
+
+                day++;
+
+                double morningCash = player.wallet.Money;
+
+                GameSpace();
+                store.NewInventory(player);
+                store.AskForStore(player);
+                GameSpace();
+
+                player.ChangeRecipe();
+                GameSpace();
+                int pitchers = UserInterface.GetNumberOfPitchers();
+                GameSpace();
+                player.CheckPitcher(pitchers);
+
+                player.PricePerCup();
+                days[i].weather.GenerateWeather();
+
+                int n = Convert.ToInt32((days[i].CalcDemand()) * (.8));//to get number of customer objects (demand based on weather)
+
+
+                Console.WriteLine("Okay,lets start selling!.Good Luck");
+                GameSpace();
+
+
+                for (int x = 0; x < n; x++)
+                {
+                    Customer customer = new Customer();
+                    days[i].customers.Add(customer);
+                    days[i].customers[x].cost = player.chargingPrice;
+
+
+                    bool answer = days[i].customers[x].ComeToCounter();
+
+                    if (answer == true)
+                    {
+
+                        player.SellLemonade(pitchers);
+
+
+
+
+
+                    }
+                    else if (answer == false)
+                    {
+                        Thread.Sleep(150);
+                        Console.WriteLine("Customer passed you by");
+
+                    }
+
+
+                }
+                GameSpace();
+                GameSpace();
+
+                double nightCash = player.wallet.Money;
+
+                EndOfDay(startingMoney, morningCash, nightCash);
+
+                i++;
+
+                Thread.Sleep(4000);
+
+
+            }
+        }
+
+
+
+
+
+
         // orgcash ir orginal money   new cash is morning starting money    total cash is end of day money       total profit is the weeks profit profit is daily profit
         //starting money//startodaymoney//moneymade//
         public void EndOfDay(double orgCash,double newCash,double totalCash)
@@ -85,6 +192,7 @@ namespace LemonadeStand
 
                 totalProfit = totalCash - orgCash;
                 Console.WriteLine($"Your total profit so far this week is {totalProfit} dollars");
+                Console.WriteLine($"And you have {totalCash} dollars in your wallet now.");
 
                 //subtract wallet money from starting money gives you the total week profit or loss
                 //subtract old wallet money from that day to updated wallet from the end of the day
@@ -121,89 +229,24 @@ namespace LemonadeStand
             Console.WriteLine("Make sure you have enough stock or you wont be able to sell!");
             Console.WriteLine("Weather will play a big part in demand so make sure you listen to the weather forecast");
             Console.WriteLine("Good Luck");
+            //write a better intro 
+
+            RunWeek();
 
 
-            CreatePlayerObjects();
-            double startingMoney = player.wallet.Money; //capture starting day cash in wallet
-            int day = 1;
-                //for loop here for amount of days
-
-                for (int i = 0; i < 7; i++)
-                {
-
-                Console.WriteLine($"Starting Day {day}");
-                    days[0].weather.GenerateForecast();
-
-
-
-                double morningCash = player.wallet.Money;
-
-
-                    store.NewInventory(player);
-                    store.AskForStore(player);
-                    player.ChangeRecipe();
-                    int pitchers = UserInterface.GetNumberOfPitchers();//need to connect this to cups of lemonade
-                                                                       //take out number of ing it takes to make the amt of pitch from inventory
-                                                                       //make sure they can make those amount of pitchers
-                    player.CheckPitcher(pitchers);
-
-                    player.PricePerCup();
-                    days[i].weather.GenerateWeather();
-
-                    int n = Convert.ToInt32((days[i].CalcDemand()) * (.8));//to get number of customer objects (demand based on weather)
-
-
-                    Console.WriteLine("Okay,lets start selling!.Good Luck");
-
-
-                    for (int x = 0; x < n; x++)
-                    {
-                        Customer customer = new Customer();
-                        days[i].customers.Add(customer);
-                        days[i].customers[x].cost = player.chargingPrice;
-
-
-                        bool answer = days[i].customers[x].ComeToCounter();
-
-                        if (answer == true)
-                        {
-
-                        player.SellLemonade(pitchers);
-                            
-
-
-
-
-                        }
-                        else if (answer == false)
-                        {
-
-                            Console.WriteLine("Customer passed you by");
-
-                        }
-
-                    
-                    }
-
-
-                double nightCash = player.wallet.Money;
-
-                EndOfDay(startingMoney, morningCash, nightCash);
-
-                i++;
-
-
-
-
+            if (player.wallet.Money < .25)
+            {
+                Console.WriteLine("You ran out of money so your stand went out of businesss! Better luck next week :(");
             }
+            Console.WriteLine("Game Over.");
+           
+            //we will have a game over scenario here
+            //possibily if they run out of money but if not its fine
 
 
 
 
-
-
-
-            }
+        }
         
         }
     }

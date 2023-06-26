@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,6 +52,15 @@ namespace LemonadeStand
                 recipe.DisplayRecipe();
 
             }
+            else if (answer == "N" || answer == "n")
+            {
+                Console.WriteLine("Okay,moving on.");
+            }
+            else
+            {
+                Console.WriteLine("Please type Y or N, try again");
+                ChangeRecipe();
+            }
 
 
 
@@ -88,8 +98,14 @@ namespace LemonadeStand
                 usableCups -= recipe.numberOfCups;
                 wallet.AcceptMoney(chargingPrice);
 
-                
+                Thread.Sleep(300);
 
+
+
+            }
+            else if (amtOfPitchers == 0)
+            {
+                Console.WriteLine("You missed a paying customer by not making any lemonade today");
 
 
             }
@@ -98,9 +114,9 @@ namespace LemonadeStand
 
                 Console.WriteLine("Sold Out!");
 
+                Thread.Sleep(1000);
 
-                
-               
+
             }
 
 
@@ -116,44 +132,7 @@ namespace LemonadeStand
             Console.WriteLine($"You now have {wallet.Money}");
         }
 
-        public bool CheckInventory()//if pitcher is 2 and lemons is 2 make sure its sold out when ingriedaints are 0
-        {
-            if (inventory.lemons.Count() <= 0)//make it the amount of playable lemons instead of the invetory
-            {
-                
-                inventory.lemons.Clear();
-                return true;
-                
-                
-            }
-            else if (inventory.sugarCubes.Count() <= 0)
-            {
-                
-                inventory.sugarCubes.Clear();
-                return true;
-            }
-            else if (inventory.iceCubes.Count() <= 0)
-            {
-               
-                inventory.iceCubes.Clear();
-                return true;
-            }
-            else if (inventory.cups.Count() <= 0)
-            {
-                
-                inventory.cups.Clear();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-            
-            
-            
-
-        }
+       
 
         public int CheckPitcher(int amtOfPitchers)
         {
@@ -209,7 +188,10 @@ namespace LemonadeStand
 
 
 
-
+            return usableLemons;
+            return usableSugar;
+            return usableIce;
+            return usableCups;
 
 
 
